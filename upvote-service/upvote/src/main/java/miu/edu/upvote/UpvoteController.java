@@ -25,4 +25,9 @@ public class UpvoteController {
     public ResponseEntity<Object> getUpvoteByUserId(@PathVariable Long userId){
         return upvoteService.getUpvoteForUser(userId);
     }
+
+    @DeleteMapping("/delete/{upvoteId}")
+    public ResponseEntity<Object> deleteUpvote(@PathVariable Long upvoteId){
+        return upvoteService.deleteUpvote(upvoteId);
+    }
 }
