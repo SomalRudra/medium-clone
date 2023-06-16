@@ -3,9 +3,9 @@ spring:
   application:
     name: article-service
   datasource:
-    url: jdbc:mysql://localhost:3306/medium-clone
+    url: jdbc:mysql://localhost/cs544?useSSL=false&serverTimezone=America/Chicago
     username: root
-    password:
+    password: percentage
   jpa:
     database-platform: org.hibernate.dialect.MySQLDialect
     hibernate:
@@ -22,4 +22,8 @@ spring:
     init:
       mode: always
 server:
-  port: 8080
+  port: 8081
+eureka:
+  client:
+    service-url:
+      default-zone: http://localhost:8761/eureka/
