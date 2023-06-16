@@ -46,7 +46,6 @@ public class ArticleService implements IArticleService{
                 article.setTitle(articleUpdate.getTitle());
                 article.setContent(articleUpdate.getContent());
                 article.setAuthor(articleUpdate.getAuthor());
-                article.setCreated_at(article.getCreated_at());
                 article.setUpdated_at(new Date());
                 // Save the updated item back to the database
                 articleDao.save(article);

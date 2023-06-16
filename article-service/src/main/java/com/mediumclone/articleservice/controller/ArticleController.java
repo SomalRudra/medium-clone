@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Date;
 
 @RestController
-@RequestMapping("api/v1/article")
+@RequestMapping("/articles")
 public class ArticleController {
     @Autowired
     private ArticleService as;

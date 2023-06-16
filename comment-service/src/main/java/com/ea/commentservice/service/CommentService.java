@@ -43,6 +43,7 @@ public class CommentService {
 	private CommentDto mapEntityToDto(Comment comment) {
 		CommentDto commentDto = new CommentDto();
 		commentDto.setContent(comment.getContent());
+		commentDto.setCommentId(comment.getCommentId());
 		//commentDto.setUserId(comment.getUser().getUserId());
 		//commentDto.setArticleId(comment.getArticle().getArticleId());
 		commentDto.setArticleId(comment.getArticleId());
