@@ -4,12 +4,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/upvote")
 public class UpvoteController {
 
     @Autowired
     UpvoteService upvoteService;
+
+    @GetMapping
+    public ResponseEntity<List<Upvote>> getAllUpvotes(){
+        return upvoteService.getAllUpvotes();
+    }
 
     @PostMapping("/add")
     public ResponseEntity<Object> addUpvote(@RequestBody Upvote upvote){
