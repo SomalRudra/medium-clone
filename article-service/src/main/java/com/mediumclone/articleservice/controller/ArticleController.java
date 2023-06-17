@@ -1,6 +1,7 @@
 package com.mediumclone.articleservice.controller;
 
 import com.mediumclone.articleservice.domain.Article;
+import com.mediumclone.articleservice.dto.ArticleDto;
 import com.mediumclone.articleservice.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,9 +16,8 @@ public class ArticleController {
     @Autowired
     private ArticleService as;
     @PostMapping("/save")
-    public ResponseEntity<String> save(@RequestBody Article article){
-        article.setCreated_at(new Date());
-        article.setUpdated_at(new Date());
+    public ResponseEntity<String> save(@RequestBody ArticleDto article){
+        System.out.println("\narticle:: " + article);
         if(as.saveArticle(article)){
             return ResponseEntity.status(HttpStatus.OK).body("added successfully");
         }else {

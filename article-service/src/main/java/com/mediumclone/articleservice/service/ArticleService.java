@@ -2,6 +2,9 @@ package com.mediumclone.articleservice.service;
 
 import com.mediumclone.articleservice.dao.ArticleDao;
 
+import com.mediumclone.articleservice.dao.TagDao;
+import com.mediumclone.articleservice.domain.Tag;
+import com.mediumclone.articleservice.dto.ArticleDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -10,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.mediumclone.articleservice.domain.Article;
 
 import java.util.Date;
+import java.util.List;
 
 @Service
 @Transactional(propagation = Propagation.REQUIRED)
@@ -17,6 +21,8 @@ public class ArticleService implements IArticleService{
 
     @Autowired
     private ArticleDao articleDao;
+    @Autowired
+    private TagDao tagDao;
 
     public Iterable<Article> getArticles() {
         return articleDao.findAll();
@@ -26,9 +32,9 @@ public class ArticleService implements IArticleService{
         return articleDao.getById(id);
     }
 
-    public boolean saveArticle(Article article) {
+    public boolean saveArticle(ArticleDto article) {
         try {
-            Article savedArticle = articleDao.save(article);
+            Article savedArticle = articleDao.save(dtoToEntityMapper(article));
             if (savedArticle != null) return true;
             return false;
         } catch (Exception e){
@@ -37,18 +43,43 @@ public class ArticleService implements IArticleService{
         }
     }
 
+    public Article dtoToEntityMapper(ArticleDto dtoArticle){
+        Article article = new Article();
+        article.setTitle(dtoArticle.getTitle());
+        article.setContent(dtoArticle.getContent());
+        article.setAuthor(dtoArticle.getAuthor());
+        article.setCreated_at(new Date());
+        article.setUpdated_at(new Date());
+//      article = this.addTags(dtoArticle.getTags());
+        article = this.addTags(article, dtoArticle.getTags());
+
+        return  article;
+    }
+    
+    public Article addTags(Article article, String tags){
+        String tagsArr[] = tags.split(",");
+        for (String tag: tagsArr) {
+            Tag tagObj = new Tag(tag);
+            System.out.println("Tag Exists? :: "+tagDao.existsByTagName(tag));
+            if (!tagDao.existsByTagName(tag)){
+                tagDao.save(tagObj);
+            } else {
+                tagObj = tagDao.findFirstByTagName(tag);
+            }
+            article.setTag(tagObj);
+
+        }
+        return article;
+    } 
     public boolean updateArticle(Article articleUpdate) {
         try {
             Article article = articleDao.findById(articleUpdate.getId()).orElse(null);
             if (article != null) {
-                // Apply changes received in the PATCH request to the fetched item
-                // For example, assuming the updatedItem contains new values for specific fields
                 article.setTitle(articleUpdate.getTitle());
                 article.setContent(articleUpdate.getContent());
                 article.setAuthor(articleUpdate.getAuthor());
                 article.setCreated_at(article.getCreated_at());
                 article.setUpdated_at(new Date());
-                // Save the updated item back to the database
                 articleDao.save(article);
                 return true;
             } else {
