@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
+import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/article")
@@ -25,25 +26,32 @@ public class ArticleController {
         }
     }
     @GetMapping("/list")
-    public Iterable<Article> getAll(){
+    public List<ArticleDto> getAll(){
         return as.getArticles();
     }
     @GetMapping("/{id}")
-    public Article getOne(@PathVariable Long id){
+    public ArticleDto getOne(@PathVariable Long id){
+        System.out.println("\n\nInside getOne - GetMapping :: "+ id);
         return as.getArticle(id);
     }
 
     @PutMapping("/update")
-    public ResponseEntity update(@RequestBody Article article){
-        if(as.updateArticle(article)){
+    public ResponseEntity update(@RequestBody ArticleDto article){
+        ArticleDto dbArticle = as.getArticle(article.getId());
+        if(dbArticle == null){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("article not found");
+        }
+        if(as.updateArticle(dbArticle, article)){
+            System.out.println("\n\n2");
             return ResponseEntity.status(HttpStatus.OK).body("updated successfully");
         }else {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("article not found");
+            System.out.println("\n\n3");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("something went wrong while updating the article");
         }
     }
     @DeleteMapping("/delete/{id}")
     public ResponseEntity delete(@PathVariable Long id){
-        Article article = as.getArticle(id);
+        ArticleDto article = as.getArticle(id);
         if(article == null){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("article not found");
         }

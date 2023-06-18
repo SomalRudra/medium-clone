@@ -91,7 +91,9 @@ public class Article {
     public void setTag(Tag tag) {
         this.tags.add(tag);
     }
-
+    public void resetTags(){
+        this.tags.clear();
+    }
     @Override
     public String toString() {
         return "Article{" +
