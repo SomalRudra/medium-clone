@@ -6,16 +6,16 @@ spring:
           uri: lb://USER-SERVICE
           predicates:
             - Path=/users/**
-        - id: upvote-service
-          uri: http://localhost:8080
+        - id: UPVOTE-SERVICE
+          uri: lb://USER-SERVICE
           predicates:
             - Path=/upvote/**
-        - id: comment-service
-          uri: http://localhost:8083
+        - id: COMMENT-SERVICE
+          uri: lb://COMMENT-SERVICE
           predicates:
             - Path=/comments/**
-        - id: article-service
-          uri: http://localhost:8081
+        - id: ARTICLE-SERVICE
+          uri: lb://USER-SERVICE
           predicates:
             - Path=/articles/**
         - id: SECUTIRY-SERVICE
