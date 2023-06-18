@@ -2,10 +2,8 @@ package edu.miu.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
 
-import jakarta.persistence.*;
-
-import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -62,6 +60,12 @@ public class UserController {
 		
 		return ResponseEntity.status(HttpStatus.FOUND)
 							 .body(result);
+	}
+	
+	@GetMapping("/get/{userName}")
+	public ResponseEntity<?> getUser(@PathVariable("userName") String userName){
+		return ResponseEntity.ok(userService.getUser(userName));
+		
 	}
 	
 }

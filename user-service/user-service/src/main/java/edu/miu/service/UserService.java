@@ -79,4 +79,11 @@ public class UserService {
 		return UserResponse.builder().id(user.getId()).username(user.getUsername()).password(user.getPassword())
 				.email(user.getEmail()).created_at(user.getCreated_at()).updated_at(user.getUpdated_at()).build();
 	}
+
+	public UserResponse getUser(String userName) {
+		User user = userRepository.findByUserName(userName);
+		UserResponse userDto = new UserResponse();
+		BeanUtils.copyProperties(user, userDto);
+		return userDto;
+	}
 }

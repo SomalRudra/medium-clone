@@ -3,9 +3,9 @@ spring:
   application:
     name: article-service
   datasource:
-    url: jdbc:mysql://localhost/cs544?useSSL=false&serverTimezone=America/Chicago
+    url: jdbc:mysql://localhost/cs544?useSSL=false&serverTimezone=America/Chicago&allowPublicKeyRetrieval=true
     username: root
-    password: percentage
+    password: root
   jpa:
     database-platform: org.hibernate.dialect.MySQLDialect
     hibernate:
@@ -27,3 +27,11 @@ eureka:
   client:
     service-url:
       default-zone: http://localhost:8761/eureka/
+      
+security:
+  oauth2:
+    resource:
+     token-info-uri: http://localhost:8087/oauth/check_token
+    client:
+     client-id: client
+     client-secret: secret        
