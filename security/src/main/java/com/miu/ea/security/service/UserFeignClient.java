@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import com.miu.ea.security.dto.UserDto;
 
-@FeignClient("USERSERVICE")
+@FeignClient("USER-SERVICE")
 public interface UserFeignClient {
 	
 	 @GetMapping("/users/get/{userName}")

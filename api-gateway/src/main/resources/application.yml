@@ -2,8 +2,8 @@ spring:
   cloud:
     gateway:
       routes:
-        - id: USERSERVICE
-          uri: lb://USERSERVICE
+        - id: USER-SERVICE
+          uri: lb://USER-SERVICE
           predicates:
             - Path=/users/**
         - id: upvote-service
