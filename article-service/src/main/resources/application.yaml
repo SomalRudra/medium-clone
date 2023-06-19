@@ -1,0 +1,29 @@
+
+spring:
+  application:
+    name: article-service
+  datasource:
+    url: jdbc:mysql://localhost/cs544?useSSL=false&serverTimezone=America/Chicago
+    username: root
+    password: percentage
+  jpa:
+    database-platform: org.hibernate.dialect.MySQLDialect
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        #        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+        format_sql: true
+      show_sql: true
+      defer-datasource-initialization: true
+      generate-ddl: true
+    show-sql: true
+  sql:
+    init:
+      mode: always
+server:
+  port: 8081
+eureka:
+  client:
+    service-url:
+      default-zone: http://localhost:8761/eureka/
