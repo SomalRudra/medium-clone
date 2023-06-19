@@ -2,7 +2,8 @@ package edu.miu.dto;
 
 import java.util.Date;
 
-import jakarta.persistence.*;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

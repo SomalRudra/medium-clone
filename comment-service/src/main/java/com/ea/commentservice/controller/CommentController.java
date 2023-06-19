@@ -46,5 +46,10 @@ public class CommentController {
 		commentService.deleteComment(commentId);
 		return ResponseEntity.ok("Delete sucessful");
 	}
+	
+	@GetMapping("/{articleId}")
+	public ResponseEntity<?> getCommentsByArticle(@PathVariable("articleId") Long articleId){
+		return ResponseEntity.ok().body(commentService.getCommentsByArticle(articleId));
+	}
 
 }

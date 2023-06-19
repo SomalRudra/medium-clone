@@ -2,19 +2,27 @@ spring:
   cloud:
     gateway:
       routes:
-        - id: user-service
-          uri: http://localhost:8082
+        - id: USER-SERVICE
+          uri: lb://USER-SERVICE
           predicates:
             - Path=/users/**
-        - id: upvote-service
-          uri: http://localhost:8080
+        - id: UPVOTE-SERVICE
+          uri: lb://UPVOTE-SERVICE
           predicates:
             - Path=/upvote/**
-        - id: comment-service
-          uri: http://localhost:8083
+        - id: COMMENT-SERVICE
+          uri: lb://COMMENT-SERVICE
           predicates:
             - Path=/comments/**
-        - id: article-service
-          uri: http://localhost:8081
+        - id: ARTICLE-SERVICE
+          uri: lb://ARTICLE-SERVICE
           predicates:
             - Path=/articles/**
+        - id: SECURITY-SERVICE
+          uri: lb://SECURITY-SERVICE
+          predicates:
+            - Path=/oauth/** 
+        - id: LOGIN-SERVICE
+          uri: lb://LOGIN-SERVICE
+          predicates:
+            - Path=/login/**        

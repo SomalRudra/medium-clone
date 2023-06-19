@@ -13,19 +13,28 @@ import edu.miu.model.User;
 import edu.miu.repository.UserRepository;
 import edu.miu.response.CustomResponseMessage;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 @Service
 @RequiredArgsConstructor
-@Slf4j
 public class UserService {
 
 	private final UserRepository userRepository;
 
 	public String addUser(UserRequest userRequest) {
+
+//		if (userRequest.getUsername().isEmpty() || userRequest.getPassword().isEmpty()
+//				|| userRequest.getEmail().isEmpty()) {
+//			throw new EmptyFieldException("", HttpStatus.BAD_REQUEST);
+//		}
+
+//		CharSequence chars = "!@#$%";
+//		if (userRequest.getPassword().length() < 5 || userRequest.getPassword().length() > 11
+//				|| !userRequest.getPassword().contains(chars) 
+//				|| userRequest.getPassword().matches("(?=.*[0-9])")) {
+//			throw new PasswordValidationException("", HttpStatus.BAD_REQUEST);
+//		}
 		User user = buildUser(userRequest);
 		userRepository.save(user);
-		log.info("User with username < {} > successfully registered.", user.getUsername());
 		CustomResponseMessage responseMessage = new CustomResponseMessage(
 				"User with username '" + user.getUsername() + "' successfully added!");
 

@@ -2,12 +2,18 @@ package edu.miu.dto;
 
 import java.util.Date;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+/**
+ * Separated DTO class is made to hold and transfer the data 
+ */
 
 @Data
 @Builder
@@ -17,11 +23,10 @@ public class UserRequest {
 
 	@NotEmpty(message = "username is mandatory")
 	private String username;
-	@NotBlank(message = "username is mandatory")
-//	at least 1 digit, at least one small letter, at least one big letter, min=6, max=12
-	@Pattern(regexp = "((?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[A-Z])(?=.*[@%#$]).{6,12})")
+//	at least 1 digit, at least one small letter, at least one big letter, 1 special char,and min=6, max=12
+	@Pattern(regexp = "((?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@%#$]).{6,12})")
 	private String password;
-	@Email
+	@Email(message = "Please enter a correst email format.")
 	private String email;
 	private Date created_at;
 	private Date updated_at;

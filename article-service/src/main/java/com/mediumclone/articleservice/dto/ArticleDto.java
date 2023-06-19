@@ -1,14 +1,8 @@
 package com.mediumclone.articleservice.dto;
 
-import com.mediumclone.articleservice.domain.Tag;
-import jakarta.persistence.*;
-import lombok.Data;
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
-
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
+
+import lombok.Data;
 
 @Data
 public class ArticleDto {

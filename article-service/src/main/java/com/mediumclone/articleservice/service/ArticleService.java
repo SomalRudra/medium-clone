@@ -1,6 +1,9 @@
 package com.mediumclone.articleservice.service;
 
-import com.mediumclone.articleservice.dao.ArticleDao;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.StringJoiner;
 
 import com.mediumclone.articleservice.dao.TagDao;
 import com.mediumclone.articleservice.domain.Tag;
@@ -11,15 +14,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.mediumclone.articleservice.dao.ArticleDao;
+import com.mediumclone.articleservice.dao.TagDao;
 import com.mediumclone.articleservice.domain.Article;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.StringJoiner;
+import com.mediumclone.articleservice.domain.Tag;
+import com.mediumclone.articleservice.dto.ArticleDto;
 
 @Service
-@Transactional(propagation = Propagation.REQUIRED)
+@Transactional
 public class ArticleService implements IArticleService{
 
     @Autowired
