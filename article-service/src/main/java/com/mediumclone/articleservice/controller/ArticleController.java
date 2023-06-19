@@ -13,7 +13,7 @@ import java.util.Date;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/v1/article")
+@RequestMapping("/articles")
 public class ArticleController {
     @Autowired
     private ArticleService as;

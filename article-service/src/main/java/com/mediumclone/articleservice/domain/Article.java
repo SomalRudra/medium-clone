@@ -28,12 +28,17 @@ public class Article {
     public Article() {
     }
 
-    public Article(String title, String content, Long author, Date created_at, Date updated_at) {
+
+    @PrePersist
+    protected void onCreate() {
+        created_at = new Date();
+        updated_at = new Date();
+    }
+
+    public Article(String title, String content, Long author) {
         this.title = title;
         this.content = content;
         this.author = author;
-        this.created_at = created_at;
-        this.updated_at = updated_at;
     }
 
     public Long getId() {
