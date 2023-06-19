@@ -13,19 +13,28 @@ import edu.miu.model.User;
 import edu.miu.repository.UserRepository;
 import edu.miu.response.CustomResponseMessage;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 @Service
 @RequiredArgsConstructor
-@Slf4j
 public class UserService {
 
 	private final UserRepository userRepository;
 
 	public String addUser(UserRequest userRequest) {
+
+//		if (userRequest.getUsername().isEmpty() || userRequest.getPassword().isEmpty()
+//				|| userRequest.getEmail().isEmpty()) {
+//			throw new EmptyFieldException("", HttpStatus.BAD_REQUEST);
+//		}
+
+//		CharSequence chars = "!@#$%";
+//		if (userRequest.getPassword().length() < 5 || userRequest.getPassword().length() > 11
+//				|| !userRequest.getPassword().contains(chars) 
+//				|| userRequest.getPassword().matches("(?=.*[0-9])")) {
+//			throw new PasswordValidationException("", HttpStatus.BAD_REQUEST);
+//		}
 		User user = buildUser(userRequest);
 		userRepository.save(user);
-		log.info("User with username < {} > successfully registered.", user.getUsername());
 		CustomResponseMessage responseMessage = new CustomResponseMessage(
 				"User with username '" + user.getUsername() + "' successfully added!");
 
@@ -78,12 +87,5 @@ public class UserService {
 	private UserResponse mapToUserResponse(User user) {
 		return UserResponse.builder().id(user.getId()).username(user.getUsername()).password(user.getPassword())
 				.email(user.getEmail()).created_at(user.getCreated_at()).updated_at(user.getUpdated_at()).build();
-	}
-
-	public UserResponse getUser(String userName) {
-		User user = userRepository.findByUserName(userName);
-		UserResponse userDto = new UserResponse();
-		BeanUtils.copyProperties(user, userDto);
-		return userDto;
 	}
 }

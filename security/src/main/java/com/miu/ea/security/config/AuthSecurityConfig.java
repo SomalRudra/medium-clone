@@ -33,7 +33,7 @@ public class AuthSecurityConfig extends WebSecurityConfigurerAdapter {
 		auth.inMemoryAuthentication()
 		  .withUser("admin").password(new BCryptPasswordEncoder().encode("password")).roles("ADMIN");
 		auth.inMemoryAuthentication()
-		  .withUser("sandip").password(new BCryptPasswordEncoder().encode("password")).roles("USER");
+		  .withUser("user").password(new BCryptPasswordEncoder().encode("password")).roles("USER");
 		auth.userDetailsService(customUserDetailService);
 	}
 

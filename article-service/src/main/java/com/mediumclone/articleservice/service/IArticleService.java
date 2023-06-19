@@ -1,11 +1,14 @@
 package com.mediumclone.articleservice.service;
 
 import com.mediumclone.articleservice.domain.Article;
+import com.mediumclone.articleservice.dto.ArticleDto;
+
+import java.util.List;
 
 public interface IArticleService {
-    public Iterable<Article> getArticles();
-    public Article getArticle(Long id);
-    public boolean saveArticle(Article article) ;
-    public boolean updateArticle(Article article);
-    public boolean deleteArticle(Article article);
+    public List<ArticleDto> getArticles();
+    public ArticleDto getArticle(Long id);
+    public boolean saveArticle(ArticleDto article) ;
+    public boolean updateArticle(ArticleDto dbArticle, ArticleDto article);
+    public boolean deleteArticle(ArticleDto article);
 }

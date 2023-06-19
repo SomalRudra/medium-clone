@@ -7,7 +7,7 @@ spring:
           predicates:
             - Path=/users/**
         - id: UPVOTE-SERVICE
-          uri: lb://USER-SERVICE
+          uri: lb://UPVOTE-SERVICE
           predicates:
             - Path=/upvote/**
         - id: COMMENT-SERVICE
@@ -15,10 +15,10 @@ spring:
           predicates:
             - Path=/comments/**
         - id: ARTICLE-SERVICE
-          uri: lb://USER-SERVICE
+          uri: lb://ARTICLE-SERVICE
           predicates:
             - Path=/articles/**
-        - id: SECUTIRY-SERVICE
+        - id: SECURITY-SERVICE
           uri: lb://SECURITY-SERVICE
           predicates:
             - Path=/oauth/** 

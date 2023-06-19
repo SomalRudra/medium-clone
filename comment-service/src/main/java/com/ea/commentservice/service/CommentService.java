@@ -73,4 +73,11 @@ public class CommentService {
 		}
 		return oComment;
 	}
+
+	public List<CommentDto> getCommentsByArticle(Long articleId) {
+		return commentRepository.findCommentsByArticle(articleId)
+		.stream().map(p ->{
+			return mapEntityToDto(p);
+		}).collect(Collectors.toList());
+	}
 }
