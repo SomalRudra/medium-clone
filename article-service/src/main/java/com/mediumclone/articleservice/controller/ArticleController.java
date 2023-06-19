@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -60,5 +61,15 @@ public class ArticleController {
         }else {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Something went wrong while deleting");
         }
+    }
+    @GetMapping("/articlesContaining/{text}")
+    public List<ArticleDto> getArticlesContaining(@PathVariable String text){
+        return as.searchByText(text);
+    }
+
+    @GetMapping("/searchByTag/{tag}")
+    public List<ArticleDto> getArticlesByTag(@PathVariable String tag){
+        System.out.println("Searching articles containing tag :"+ tag);
+        return as.searchByTag(tag);
     }
 }

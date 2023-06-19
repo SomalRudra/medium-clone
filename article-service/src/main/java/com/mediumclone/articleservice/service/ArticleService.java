@@ -87,8 +87,10 @@ public class ArticleService implements IArticleService{
         }
         String tagsArr[] = tags.split(",");
         for (String tag: tagsArr) {
-            Tag tagObj = new Tag(tag);
+            tag = tag.trim();
+            Tag tagObj;// = new Tag(tag);
             if (!tagDao.existsByTagName(tag)){
+                tagObj = new Tag(tag);
                 tagDao.save(tagObj);
             } else {
                 tagObj = tagDao.findFirstByTagName(tag);
@@ -96,7 +98,16 @@ public class ArticleService implements IArticleService{
             article.setTag(tagObj);
         }
         return article;
-    } 
+    }
+    public List<ArticleDto> searchByTag(String tag){
+        List<ArticleDto> articleDto = new ArrayList<>();
+        Tag tagObj = tagDao.findFirstByTagName(tag);
+        List<Article> articles = articleDao.findByTagsContaining(tagObj);
+        for (Article article: articles) {
+            articleDto.add(entityToDtoMapper(article));
+        }
+        return articleDto;
+    }
     public boolean updateArticle(ArticleDto dbArticle, ArticleDto articleUpdateDto) {
         try {
             Article articleUpdate = this.dtoToEntityMapper(articleUpdateDto);
@@ -132,5 +143,14 @@ public class ArticleService implements IArticleService{
             e.printStackTrace();
             return false;
         }
+    }
+
+    public List<ArticleDto> searchByText(String text){
+        List<ArticleDto> articleDto = new ArrayList<>();
+        List<Article> articles = articleDao.findByContentOrTitleContaining(text, text);
+        for (Article article: articles) {
+            articleDto.add(entityToDtoMapper(article));
+        }
+        return articleDto;
     }
 }
