@@ -1,6 +1,8 @@
 package com.mediumclone.articleservice.domain;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -20,8 +22,8 @@ public class Article {
     private Date created_at;
     @Temporal(TemporalType.TIMESTAMP)
     private Date updated_at;
-
-    @OneToMany
+    @ManyToMany
+//    @Cascade(CascadeType.ALL)
     private List<Tag> tags = new ArrayList<>();
     public Article() {
     }
@@ -91,7 +93,22 @@ public class Article {
         return tags;
     }
 
-    public void setTags(Tag tag) {
+    public void setTag(Tag tag) {
         this.tags.add(tag);
+    }
+    public void resetTags(){
+        this.tags.clear();
+    }
+    @Override
+    public String toString() {
+        return "Article{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", author=" + author +
+                ", created_at=" + created_at +
+                ", updated_at=" + updated_at +
+                ", tags=" + tags +
+                '}';
     }
 }

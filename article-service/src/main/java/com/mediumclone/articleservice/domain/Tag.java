@@ -3,6 +3,10 @@ package com.mediumclone.articleservice.domain;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Tag {
@@ -10,10 +14,12 @@ public class Tag {
     @GeneratedValue
     private Long id;
     private String tagName;
+    @ManyToMany(mappedBy = "tags")
+    private List<Article> articles= new ArrayList<>();
 
     public Tag() {
     }
-    public Tag(Long id, String tagName) {
+    public Tag(String tagName) {
         this.id = id;
         this.tagName = tagName;
     }
